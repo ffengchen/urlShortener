@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/jquery/3.5.0/jquery.min.js"></script>
+
+</head>
+
+<body>
+<div>
+    <input type="text" id="url" value="<%= url %>" placeholder="input original url here">
+    <input type="text" id="code" value="<%= code %>" placeholder="input brand（Selective filling）">
+    <div class="buttons">
+        <button onclick="delete_code()">delete</button>
+        <button onclick="update()">Update</button>
+    </div>
+</div>
+<div class="result"><span></span></div>
+<script>
+    function delete_code() {
+        $.ajax({
+            url: "/api/delete",
+            method: "post",
+            data: {code: "<%= code %>"},
+            success: function (res) {
+                console.log(res);
+                alert("delete Success!")
+            }
+        });
+    }
+
+    function update() {
+        $.ajax({
+            url: "/api/update",
+            method: "post",
+            data: {code: "<%= code %>", n_code: $("#code").val(), original_url: $("#url").val()},
+            success: function (res) {
+                console.log(res);
+                alert("update Success!")
+            }
+        });
+    }
+</script>
+</body>
+
+</html>

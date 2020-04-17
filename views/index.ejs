@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <script src="https://cdn.bootcss.com/jquery/3.5.0/jquery.min.js"></script>
+</head>
+
+
+<div>
+    <input id="original_url" type="text" placeholder="input original url here">
+    <input id="code" type="text" placeholder="input brand（Selective filling）">
+    <div><button onclick="add()">Add</button> </div>
+    <div><button><a class="url" id="showEdit">Edit/Delete</a></button></div>
+    <div><span class="url" id="result"></span></div>
+    
+</div>
+        
+
+
+<script>
+    function add() {
+        let original_url = $("#original_url").val();
+        let code = $("#code").val();
+        if (original_url === "") {
+            alert("Check your original url,it can't be blank!")
+            return;
+        }
+        let data = {
+            original_url,
+            code
+        }
+        $.ajax({
+            url: "/api/add",
+            method: "post",
+            data: data,
+            success: function (res) {
+                if (res.error) {
+                    alert("Add failed :" + res.error)
+                } else {
+                    let data = res.data;
+                    let new_url = window.location.protocol + "//" + window.location.host + "/url/"
+                    $("#result").text("You can visit " + new_url + data['code']);
+                     $("#showEdit").attr('href', new_url + data['code'] + "/edit");
+                }
+            }
+        });
+    }
+</script>
