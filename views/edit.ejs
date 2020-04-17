@@ -11,13 +11,12 @@
 <body>
 <div>
     <input type="text" id="url" value="<%= url %>" placeholder="input original url here">
-    <input type="text" id="code" value="<%= code %>" placeholder="input brand（Selective filling）">
-    <div class="buttons">
+    <input type="text" id="code" value="<%= code %>" placeholder="input brand（Selective）">
+    <div class="buttons"></div>
         <button onclick="delete_code()">delete</button>
         <button onclick="update()">Update</button>
     </div>
 </div>
-<div class="result"><span></span></div>
 <script>
     function delete_code() {
         $.ajax({
